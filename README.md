@@ -1,17 +1,32 @@
 # djanblo
 
-Welcome to the djanblo! This is a simple blog engine writen in Python, with Django Framework.
+Welcome to the djanblo! This is a simple blog engine writen in Python, using the Django Framework.
 
 ![djanblo blog](djanblo.png)
 > Logo by [RoboHash](https://robohash.org/)
 
 ## Installation
 
-    git clone https://github.com/paulohrpinheiro/djanblo
+Get the code:
 
-Please, run the tests:
+    git clone https://github.com/paulohrpinheiro/djanblo /tmp/djanblo
 
-    cd djanblo
+Create a *virtualenv* using `virtualenvwrapper`:
+
+    mkvirtualenv djanblo
+
+or if using `pyvenv` only:
+
+    python3 -m venv /tmp/djanblo-venv
+    source /tmp/djanblo-venv/bin/activate
+
+then install the dependencies:
+
+    pip install -r requirements.txt
+
+## Automated Tests
+
+    cd /tmp/djanblo
     ./manage.py test
 
 ## Usage

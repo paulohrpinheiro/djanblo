@@ -18,3 +18,6 @@ class Post(models.Model):
     def  __str__(self):
         """A post identifier"""
         return self.path
+
+    class Meta():
+        index_together = [['pub_date']]

@@ -15,7 +15,7 @@ class Post(models.Model):
     content = models.TextField(blank=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def  __str__(self):
+    def __str__(self):
         """A post identifier"""
         return self.path
 

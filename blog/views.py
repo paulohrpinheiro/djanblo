@@ -15,8 +15,8 @@ def index(request):
     try:
         posts = paginator.page(page)
     except PageNotAnInteger:
-         posts = paginator.page(1)
+        posts = paginator.page(1)
     except EmptyPage:
-            posts = paginator.page(paginator.num_pages)
+        posts = paginator.page(paginator.num_pages)
 
     return render(request, 'index.html', {'posts': posts})

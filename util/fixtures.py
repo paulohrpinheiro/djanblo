@@ -5,6 +5,7 @@ from django.utils.text import slugify
 
 from faker import Factory
 from random import randrange, choice
+from datetime import timezone
 
 
 def generate(total_posts, total_authors):
@@ -26,20 +27,19 @@ def generate(total_posts, total_authors):
         except IntegrityError:
             print("Repeated authors data")
 
-    posts = []
     created_posts = 0
     while created_posts < total_posts:
         try:
             title = fake.sentence(nb_words=6, variable_nb_words=True)
-            posts.append(
-                Post.objects.create(
-                    title = title,
-                    subject = fake.sentence(nb_words=20, variable_nb_words=True),
-                    path = slugify(title),
-                    content = '\n'.join(fake.paragraphs(nb=randrange(3,10))),
-                    author = choice(authors),
-                )
+            post = Post.objects.create(
+                title = title,
+                subject = fake.sentence(nb_words=20, variable_nb_words=True),
+                path = slugify(title),
+                content = '\n'.join(fake.paragraphs(nb=randrange(3,10))),
+                author = choice(authors),
             )
+            post.pub_date = fake.date_time(timezone.utc)
+            post.save()
             created_posts += 1
         except IntegrityError:
             print("Repeated posts data")

@@ -1,0 +1,5 @@
+[run]
+omit =
+    blog/apps.py
+    blog/admin.py
+    blog/models.py

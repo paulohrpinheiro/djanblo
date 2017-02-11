@@ -1,0 +1,37 @@
+<section>
+
+{% for post in posts %}
+  <article>
+    <head>
+        <h2>{{ post.title|upper }}</h2>
+    </head>
+    <p>{{ post.subject }}</p>
+    <p>{{ post.author.name }}</p>
+    <p>{{ post.pub_date }}</p>
+  </article>
+{% endfor %}
+</section>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if posts.number != 1 %}
+          <a href="?page=1">First</a>
+        {% endif %}
+
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">next</a>
+        {% endif %}
+
+        {% if posts.number < posts.paginator.num_pages %}
+          <a href="?page={{ posts.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </span>
+</div>

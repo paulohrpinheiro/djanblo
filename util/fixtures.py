@@ -1,0 +1,45 @@
+from django.contrib.auth.models import User
+from blog.models import Post
+from django.db.utils import IntegrityError
+from django.utils.text import slugify
+
+from faker import Factory
+from random import randrange, choice
+
+
+def generate(total_posts, total_authors):
+    """Generate and save random data for post and author models"""
+    fake = Factory.create('pt_BR')
+
+    authors = []
+    created_authors = 0
+    while created_authors < total_authors:
+        try:
+            authors.append(
+                User.objects.create_user(
+                    fake.user_name(),
+                    fake.email(),
+                    fake.password(),
+                )
+            )
+            created_authors += 1
+        except IntegrityError:
+            print("Repeated authors data")
+
+    posts = []
+    created_posts = 0
+    while created_posts < total_posts:
+        try:
+            title = fake.sentence(nb_words=6, variable_nb_words=True)
+            posts.append(
+                Post.objects.create(
+                    title = title,
+                    subject = fake.sentence(nb_words=20, variable_nb_words=True),
+                    path = slugify(title),
+                    content = '\n'.join(fake.paragraphs(nb=randrange(3,10))),
+                    author = choice(authors),
+                )
+            )
+            created_posts += 1
+        except IntegrityError:
+            print("Repeated posts data")

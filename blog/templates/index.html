@@ -1,13 +1,13 @@
 <section>
 
 {% for post in posts %}
-  <article>
+  <article class="post-entry">
     <head>
         <h2>{{ post.title|upper }}</h2>
     </head>
-    <p>{{ post.subject }}</p>
-    <p>{{ post.author.name }}</p>
-    <p>{{ post.pub_date }}</p>
+    <p class="post-subject">{{ post.subject }}</p>
+    <p class="post-author">{{ post.author.username }}</p>
+    <p class="post-date">{{ post.pub_date|date:"Y-m-d H:m:s" }}</p>
   </article>
 {% endfor %}
 </section>

@@ -11,7 +11,7 @@ from django.conf import settings
 
 
 def generate(total_posts, total_authors):
-    """Generate and save random data for post and author models"""
+    """Generate and save random data for post and author models."""
     fake = Factory.create(settings.LANGUAGE_CODE)
 
     authors = []

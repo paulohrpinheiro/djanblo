@@ -6,8 +6,7 @@ User = settings.AUTH_USER_MODEL
 
 
 class Post(models.Model):
-    """Where content (blog posts) lives"""
-
+    """Where content (blog posts) lives."""
     pub_date = models.DateTimeField(auto_now_add=True)
     path = models.TextField(blank=False, unique=True)
     title = models.CharField(max_length=70, blank=False)
@@ -16,7 +15,7 @@ class Post(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        """A post identifier"""
+        """A post identifier."""
         return self.path
 
     class Meta():

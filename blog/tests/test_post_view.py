@@ -41,7 +41,7 @@ class PostIndexPaginationTest(TestCase):
         """Test if posts are date sorted"""
         dt = []
         # pages begins in 1, but 0 is a special value for get_page()
-        for page_number in [0,2,3]:
+        for page_number in [0, 2, 3]:
             self.get_page(page_number)
             date = self.soup.find(class_='post-date')
             while date is not None:

@@ -1,7 +1,8 @@
 [run]
 omit =
-    blog/apps.py
-    blog/admin.py
-    blog/models.py
+    */apps.py
+    */urls.py
+    */admin.py
+    */models.py
     */tests/*
     */migrations/*

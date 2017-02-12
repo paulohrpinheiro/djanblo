@@ -32,11 +32,11 @@ def generate(total_posts, total_authors):
         try:
             title = fake.sentence(nb_words=6, variable_nb_words=True)
             post = Post.objects.create(
-                title = title,
-                subject = fake.sentence(nb_words=20, variable_nb_words=True),
-                path = slugify(title),
-                content = '\n'.join(fake.paragraphs(nb=randrange(3,10))),
-                author = choice(authors),
+                title=title,
+                subject=fake.sentence(nb_words=20, variable_nb_words=True),
+                path=slugify(title),
+                content='\n'.join(fake.paragraphs(nb=randrange(3, 10))),
+                author=choice(authors),
             )
             post.pub_date = fake.date_time(timezone.utc)
             post.save()

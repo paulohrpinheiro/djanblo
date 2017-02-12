@@ -1,37 +1,58 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  {% load bootstrap3 %}
+  {% bootstrap_css %}
+  {% load static %}
+
+  <link href="{% static "blog/blog.css" %}" rel="stylesheet">
+
+  <title>Djanblo</title>
+
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="container">
+    <div class="blog-header">
+      <h1 class="blog-title">Welcome to the Djanblo!</h1>
+      <p class="lead blog-description">The Djanblo blog engine.</p>
+    </div>
+    <div class="row">
+      <div class="col-sm-8 blog-main">
+
+{% bootstrap_messages %}
+
 <section>
 
 {% for post in posts %}
   <article class="post-entry">
-    <head>
-        <h2>{{ post.title|upper }}</h2>
-    </head>
-    <p class="post-subject">{{ post.subject }}</p>
-    <p class="post-author">{{ post.author.username }}</p>
-    <p class="post-date">{{ post.pub_date|date:"Y-m-d H:m:s" }}</p>
+      <a href="{% url 'post' post.path %}">
+      <head>
+        <h2 class="blog-post-title">{{ post.title }}</h2>
+      </head>
+      <p class="blog-post-meta">{{ post.subject }}</p>
+      <p class="blog-post-meta">
+        {{ post.author.username }} -
+        <span class="post-date">{{ post.pub_date|date:"Y-m-d H:m:s" }}</span>
+      </p>
+    </a>
   </article>
 {% endfor %}
 </section>
 
-<div class="pagination">
-    <span class="step-links">
-        {% if posts.number != 1 %}
-          <a href="?page=1">First</a>
-        {% endif %}
+{% bootstrap_pagination page=posts url="/" size="large" %}
 
-        {% if posts.has_previous %}
-            <a href="?page={{ posts.previous_page_number }}">previous</a>
-        {% endif %}
+{% bootstrap_javascript %}
 
-        <span class="current">
-            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
-        </span>
-
-        {% if posts.has_next %}
-            <a href="?page={{ posts.next_page_number }}">next</a>
-        {% endif %}
-
-        {% if posts.number < posts.paginator.num_pages %}
-          <a href="?page={{ posts.paginator.num_pages }}">Last</a>
-        {% endif %}
-    </span>
-</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

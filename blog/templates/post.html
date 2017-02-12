@@ -1,3 +1,4 @@
+{% load blog_extras %}
 <!DOCTYPE html>
 <head>
   <meta charset="utf-8">
@@ -40,15 +41,16 @@
       <span class="post-date">{{ post.pub_date|date:"Y-m-d H:m:s" }}</span>
     </p>
     <div>
-      {{ post.content }}
+{{ post.content|make_paragraphs|safe }}
     </div>
   </article>
 </section>
 
-{% bootstrap_javascript %}
-
       </div>
     </div>
   </div>
+
+{% bootstrap_javascript %}
+
 </body>
 </html>

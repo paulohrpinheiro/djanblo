@@ -9,6 +9,12 @@ from util import fixtures
 import json
 
 
+def to_json(from_string):
+    """Convert string to json."""
+    # Only python >= 3.6 accept str & bytes in json.loads
+    return json.loads(str(from_string, 'utf-8'))
+
+
 class ApiEntryPointTest(TestCase):
     """Test api entry point"""
 
@@ -17,8 +23,7 @@ class ApiEntryPointTest(TestCase):
         self.factory = RequestFactory()
         self.request = self.factory.get('/')
         self.response = views.index(self.request)
-        # Only python >= 3.6 accept str & bytes in json.loads
-        self.json_response = json.loads(str(self.response.content, 'utf-8'))
+        self.json_response = to_json(self.response.content)
 
     def test_response_have_all_fields(self):
         """Test if entry point give a response with all fields"""
@@ -40,7 +45,7 @@ class ApiInexistentPostTests(TestCase):
         cls.factory = RequestFactory()
         cls.request = cls.factory.get('/posts')
         cls.response = views.get_post(cls.request, path='inexistent')
-        cls.json_response = json.loads(str(cls.response.content, 'utf-8'))
+        cls.json_response = to_json(cls.response.content)
 
     def test_inexistent_post_status(self):
         """Test status for inexistent post."""
@@ -67,7 +72,7 @@ class ApiExistentPostTests(TestCase):
         cls.factory = RequestFactory()
         cls.request = cls.factory.get('/posts')
         cls.response = views.get_post(cls.request, path=cls.post.path)
-        cls.json_response = json.loads(str(cls.response.content, 'utf-8'))
+        cls.json_response = to_json(cls.response.content)
 
     def setUp(self):
         """Setup ApiExistentPostTests tests."""

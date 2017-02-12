@@ -1,9 +1,13 @@
 from django.test import TestCase, RequestFactory
 from django.conf import settings
+from django.http.response import Http404
 
 from util.fixtures import generate
 
-from blog.views import index
+from blog import views
+
+from blog.models import Post
+from django.contrib.auth.models import User
 
 from bs4 import BeautifulSoup
 
@@ -28,10 +32,10 @@ class PostIndexPaginationTest(TestCase):
         else:
             self.request = self.factory.get('/?page={}'.format(number))
 
-        self.response = index(self.request)
+        self.response = views.index(self.request)
 
         self.soup = BeautifulSoup(self.response.content, 'html.parser')
-        self.pagination = self.soup.find_all('div', class_='pagination')
+        self.pagination = self.soup.find_all('ul', class_='pagination')
 
     def test_ordered(self):
         """Test if posts are date sorted"""
@@ -47,7 +51,7 @@ class PostIndexPaginationTest(TestCase):
         self.assertTrue(all(dt[i] >= dt[i+1] for i in range(len(dt)-1)))
 
     def test_response_code_first_page(self):
-        """Test the number of pages in first page"""
+        """Test response code in first page"""
         self.get_page()
         self.assertEqual(self.response.status_code, 200)
 
@@ -56,20 +60,10 @@ class PostIndexPaginationTest(TestCase):
         self.get_page(int(1e10))
         self.assertEqual(self.response.status_code, 200)
 
-    def test_inexistent_page_get_first_page(self):
-        """Test if returns last page when page number is inexistent"""
-        self.get_page(int(1e10))
-        self.assertIn('Page 3 of 3.', self.pagination[0].text)
-
     def test_response_code_string_page(self):
         """Test if return a valid page for a string page number"""
         self.get_page('this is not a number!')
         self.assertEqual(self.response.status_code, 200)
-
-    def test_string_page_get_first_page(self):
-        """Test if returns last page when page number is a string"""
-        self.get_page('this is not a number!')
-        self.assertIn('Page 1 of 3.', self.pagination[0].text)
 
     def test_has_pagination_first_page(self):
         """Test if first page has pagination class in html"""
@@ -81,18 +75,8 @@ class PostIndexPaginationTest(TestCase):
         self.get_page()
         self.assertNotIn('First', self.pagination[0].text)
 
-    def test_pagination_has_last_in_first_page(self):
-        """Test if first page has the 'last' link in pagination"""
-        self.get_page()
-        self.assertIn('Last', self.pagination[0].text)
-
-    def test_pagination_total_pages_first_page(self):
-        """Test if display the correct total number of pages in first page"""
-        self.get_page()
-        self.assertIn('Page 1 of 3.', self.pagination[0].text)
-
     def test_response_code_second_page(self):
-        """Test the number of pages in second page"""
+        """Test response code in second page"""
         self.get_page(2)
         self.assertEqual(self.response.status_code, 200)
 
@@ -101,23 +85,8 @@ class PostIndexPaginationTest(TestCase):
         self.get_page(2)
         self.assertEquals(len(self.pagination), 1)
 
-    def test_pagination_has_first_in_second_page(self):
-        """Test if second page has the 'first' link in pagination"""
-        self.get_page(2)
-        self.assertIn('First', self.pagination[0].text)
-
-    def test_pagination_has_last_in_second_page(self):
-        """Test if second page has the 'last' link in pagination"""
-        self.get_page(2)
-        self.assertIn('Last', self.pagination[0].text)
-
-    def test_pagination_total_pages_second_page(self):
-        """Test if display the correct total number of pages in second page"""
-        self.get_page(2)
-        self.assertIn('Page 2 of 3.', self.pagination[0].text)
-
     def test_response_code_last_page(self):
-        """Test the number of pages in last page"""
+        """Test response code in last page"""
         self.get_page(3)
         self.assertEqual(self.response.status_code, 200)
 
@@ -126,17 +95,33 @@ class PostIndexPaginationTest(TestCase):
         self.get_page(3)
         self.assertEquals(len(self.pagination), 1)
 
-    def test_pagination_has_first_in_last_page(self):
-        """Test if last page has the 'first' link in pagination"""
-        self.get_page(3)
-        self.assertIn('First', self.pagination[0].text)
-
     def test_pagination_has_last_in_last_page(self):
         """Test if last page has the 'last' link in pagination"""
         self.get_page(3)
         self.assertNotIn('Last', self.pagination[0].text)
 
-    def test_pagination_total_pages_last_page(self):
-        """Test if display the correct total number of pages in last page"""
-        self.get_page(3)
-        self.assertIn('Page 3 of 3.', self.pagination[0].text)
+
+class PostPostTest(TestCase):
+    """Test post post view"""
+
+    def setUp(self):
+        """Create factory"""
+        self.factory = RequestFactory()
+
+    def tearDown(self):
+        """Destroy data in database"""
+        Post.objects.all().delete()
+        User.objects.all().delete()
+
+    def test_get_existent_page(self):
+        """Test response code for an existent post"""
+        generate(total_authors=1, total_posts=1)
+        post = Post.objects.first()
+        request = self.factory.get('/post')
+        response = views.post(request, path=post.path)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_inexistent_page(self):
+        """Test response code for an inexistent post"""
+        request = self.factory.get('/post')
+        self.assertRaises(Http404, views.post, request, path='non exist')

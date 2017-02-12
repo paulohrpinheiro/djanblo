@@ -4,8 +4,8 @@ import blog.models
 
 
 def index(request):
-    """V1 API Help message."""
-    base = request.build_absolute_uri('/api/v1/posts')
+    """API Help message."""
+    base = request.build_absolute_uri('/api/posts')
     data = {
         'status': 'success',
         'message': '',
@@ -62,7 +62,10 @@ def get_post(request, path):
 def list_posts(request):
     """List posts."""
     try:
-        posts = blog.models.Post.objects.defer('content').all()
+        posts = blog.models.Post.objects\
+                                .defer('content')\
+                                .all()\
+                                .order_by('-pub_date')
     except:
         return failed('Internal error. Please, try later.', 503)
 

@@ -18,7 +18,7 @@ class PostIndexPaginationTest(TestCase):
     @classmethod
     def setUpClass(cls):
         """Create fake data for tests"""
-        # http://stackoverflow.com/questions/29653129/update-to-django-1-8-attributeerror-django-test-testcase-has-no-attribute-cl
+        # https://goo.gl/O9c9g0
         super(PostIndexPaginationTest, cls).setUpClass()
 
         cls.factory = RequestFactory()

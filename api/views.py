@@ -33,20 +33,17 @@ def fail(message, status):
 def post_info(request, post, put_content=False):
     """Return a hash with post fields (content is omitted for performance)."""
     data = {
-        'status': 'success',
-        'message': '',
-        'post': {
-            'title': post.title,
-            'subject': post.subject,
-            'publication_date': post.pub_date,
-            'author': post.author.username,
-            'path': post.path,
-            'link': request.build_absolute_uri('/post/{}'.format(post.path)),
-        }
+        'title': post.title,
+        'subject': post.subject,
+        'publication_date': post.pub_date,
+        'author': post.author.username,
+        'path': post.path,
+        'ref': request.build_absolute_uri('/api/posts/{}'.format(post.path)),
+        'link': request.build_absolute_uri('/post/{}'.format(post.path)),
     }
 
     if put_content:
-        data['post']['content'] = post.content
+        data['content'] = post.content
 
     return data
 
@@ -60,7 +57,13 @@ def get_post(request, path):
     except:
         return fail('Internal error. Please, try later.', 503)
 
-    return JsonResponse(post_info(request, post, put_content=True))
+    data = {
+        'status': 'success',
+        'message': '',
+        'post': post_info(request, post, put_content=True),
+    }
+
+    return JsonResponse(data)
 
 
 def list_posts(request):

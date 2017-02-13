@@ -21,7 +21,7 @@ Será avaliado a sua qualidade de código.
 
 ## Instalação
 
-baixe o código:
+Baixe o código:
 
     git clone https://github.com/paulohrpinheiro/djanblo /tmp/djanblo
 
@@ -29,7 +29,7 @@ Crie uma *virtualenv* usando `virtualenvwrapper`:
 
     mkvirtualenv djanblo
 
-ou, se usando `pyvenv` apenas:
+Ou, se usando `pyvenv` apenas:
 
     python3 -m venv /tmp/djanblo-venv
     source /tmp/djanblo-venv/bin/activate
@@ -128,13 +128,14 @@ Caso seja requisitado um post com `path` inexistente uma saída similar a essa �
     Server: WSGIServer/0.2 CPython/3.5.2
     Content-Type: application/json
     X-Frame-Options: SAMEORIGIN
-    
+
     {"message": "The required post path not exist.", "status": "fail"}
-    
+
 ### Populando
 
 Dados aleatórios podem ser gerados pelo comando:
 
+    ./manage.py fixtures 5 10
 
 ## Testes automáticos e relatório de cobertura
 

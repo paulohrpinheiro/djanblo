@@ -25,7 +25,7 @@ class PostModelConstrainsTest(TestCase):
 
     @staticmethod
     def create_post(
-            path='/bla',
+            path='bla',
             title='bla',
             subject='bla',
             content='bla bla bla',

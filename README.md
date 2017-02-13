@@ -11,7 +11,7 @@ Djanblo é um gerenciador de blog escrito em Python com framework Django, criado
 
 Desenvolver um sistema de blog usando Python e Django:
 
-- [x] o sistema deve ter uma home page que mostre as postagens, da mais recente a mais antiga, paginadas, 10 postagens por página
+- [x] o sistema deve ter uma home page que mostre as postagens, da mais recente à mais antiga, paginadas, 10 postagens por página
 - [x] deve existir um sistema de login para que os administradores possam cadastrar novas postagens
 - [x] deve utilizar o framework bootstrap para layout das páginas
 - [x] deve existir uma API onde seja possível obter através de GET as postagens do banco
@@ -34,7 +34,7 @@ ou, se usando `pyvenv` apenas:
     python3 -m venv /tmp/djanblo-venv
     source /tmp/djanblo-venv/bin/activate
 
-Então instale a s dependências:
+Então instale as dependências:
 
     pip install -r requirements.txt
 
@@ -92,21 +92,21 @@ Gera uma lista com todos os posts. Retorna um código de resposta HTTP 200:
 
 A estrutura desse retorno é similar a:
 
-{
-    "status": "success|fail"
-    "message": "empty in success or a error message",
-    "posts_count": "número total de posts retornados",
-    "posts": {
-        "title": "título do post",
-        "subject": "pequena explicação sobre o conteúdo do post",
-        "author": "username de quem publicou",
-        "path": "prefixo da URL que identifica unicamente o post corrente",
-        "publication_date": "data da publicação",
-        "link": "endereço WEB",
-        "ref": "endereço para buscar o post corrente pela API",
+    {
+        "status": "success|fail"
+        "message": "empty in success or a error message",
+        "posts_count": "número total de posts retornados",
+        "posts": {
+            "title": "título do post",
+            "subject": "pequena explicação sobre o conteúdo do post",
+            "author": "username de quem publicou",
+            "path": "prefixo da URL que identifica unicamente o post corrente",
+            "publication_date": "data da publicação",
+            "link": "endereço WEB",
+            "ref": "endereço para buscar o post corrente pela API",
+        }
     }
-}
-
+    
 ### [http://127.0.0.1:8080/api/posts/{path}](http://127.0.0.1:8080/api/posts/{path})
 
 Devolve um post em específico, dado o seu `path` (veja mais abaixo uma explicação sobre o modelo de dados usado). Tem o retorno HTTP 200, caso encontre o `path` solicitado:

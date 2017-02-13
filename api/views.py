@@ -73,14 +73,13 @@ def list_posts(request):
                                 .defer('content')\
                                 .all()\
                                 .order_by('-pub_date')
+        data = {
+            'status': 'success',
+            'message': '',
+            'posts': [post_info(request, post) for post in posts],
+        }
     except:
         return fail('Internal error. Please, try later.', 503)
-
-    data = {
-        'status': 'success',
-        'message': '',
-        'posts': [post_info(request, post) for post in posts],
-    }
 
     data['posts_count'] = len(data['posts'])
 

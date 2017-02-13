@@ -26,7 +26,7 @@ class ApiListingPostInternalErrorTests(TestCase):
         Post._meta.db_table = cls.table_name
 
     def test_entrypoint_crash(self):
-        """Test result from a requisition in database crash."""
+        """Test result from a entry point requisition in a crashed database."""
         request = self.factory.get('/')
         response = views.index(request)
         json_response = json.to_json(response.content)
@@ -34,10 +34,19 @@ class ApiListingPostInternalErrorTests(TestCase):
         self.assertEqual('success', json_response['status'])
         self.assertEqual(200, response.status_code)
 
-    def test_posts_crash(self):
-        """Test result from a requisition in database crash."""
+    def test_get_post_crash(self):
+        """Test result from a get post requisition in a crashed database"""
         request = self.factory.get('/posts')
         response = views.get_post(request, path='inexistent')
+        json_response = json.to_json(response.content)
+        print(json_response)
+        self.assertEqual('fail', json_response['status'])
+        self.assertEqual(503, response.status_code)
+
+    def test_list_posts_crash(self):
+        """Test result from a list posts requisition in a crashed database."""
+        request = self.factory.get('/posts')
+        response = views.list_posts(request)
         json_response = json.to_json(response.content)
         print(json_response)
         self.assertEqual('fail', json_response['status'])

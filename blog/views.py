@@ -1,10 +1,14 @@
+"""
+Views for blog app.
+"""
+
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import Http404
 
-from blog.models import Post
-
 from django.conf import settings
+
+from blog.models import Post
 
 
 def index(request):
@@ -27,8 +31,8 @@ def index(request):
 def post(request, path):
     """Show a individual post, search by path."""
     try:
-        post = Post.objects.get(path=path)
+        post_item = Post.objects.get(path=path)
     except Post.DoesNotExist:
         raise Http404('Inexistent post')
 
-    return render(request, 'post.html', {'post': post})
+    return render(request, 'post.html', {'post': post_item})

@@ -1,13 +1,18 @@
-from django.contrib.auth.models import User
-from blog.models import Post
-from django.db.utils import IntegrityError
-from django.utils.text import slugify
+"""
+Fake data generator for fixtures.
+"""
 
-from faker import Factory
 from random import randrange, choice
 from datetime import timezone
 
+from django.contrib.auth.models import User
+from django.db.utils import IntegrityError
+from django.utils.text import slugify
 from django.conf import settings
+
+from faker import Factory
+
+from blog.models import Post
 
 
 def generate(total_posts, total_authors):

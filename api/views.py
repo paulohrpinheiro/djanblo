@@ -1,3 +1,7 @@
+"""
+Views for api app.
+"""
+
 from django.http import JsonResponse
 
 import blog.models
@@ -13,17 +17,17 @@ def index(request):
         'post_content': '{}/{}'.format(base, '{path}'),
     }
 
-    return(JsonResponse(data))
+    return JsonResponse(data)
 
 
-def failed(message, status):
+def fail(message, status):
     """Returns a JSON for fail situations."""
     data = {
-        'status': 'failed',
+        'status': 'fail',
         'message': message,
     }
 
-    return(JsonResponse(data, status=status))
+    return JsonResponse(data, status=status)
 
 
 def post_info(request, post, put_content=False):
@@ -44,7 +48,7 @@ def post_info(request, post, put_content=False):
     if put_content:
         data['post']['content'] = post.content
 
-    return(data)
+    return data
 
 
 def get_post(request, path):
@@ -52,11 +56,11 @@ def get_post(request, path):
     try:
         post = blog.models.Post.objects.get(path=path)
     except blog.models.Post.DoesNotExist:
-        return failed('The required post path not exist.', 404)
+        return fail('The required post path not exist.', 404)
     except:
-        return failed('Internal error. Please, try later.', 503)
+        return fail('Internal error. Please, try later.', 503)
 
-    return(JsonResponse(post_info(request, post, put_content=True)))
+    return JsonResponse(post_info(request, post, put_content=True))
 
 
 def list_posts(request):
@@ -67,7 +71,7 @@ def list_posts(request):
                                 .all()\
                                 .order_by('-pub_date')
     except:
-        return failed('Internal error. Please, try later.', 503)
+        return fail('Internal error. Please, try later.', 503)
 
     data = {
         'status': 'success',
@@ -77,4 +81,4 @@ def list_posts(request):
 
     data['posts_count'] = len(data['posts'])
 
-    return(JsonResponse(data))
+    return JsonResponse(data)

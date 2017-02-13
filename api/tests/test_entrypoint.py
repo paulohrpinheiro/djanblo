@@ -1,3 +1,7 @@
+"""
+Tests for API entrypoint.
+"""
+
 from django.test import TestCase, RequestFactory
 
 from api import views

@@ -1,3 +1,7 @@
+"""
+Tests for existent post.
+"""
+
 from django.test import TestCase, RequestFactory
 
 from api import views

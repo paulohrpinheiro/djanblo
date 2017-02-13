@@ -1,19 +1,30 @@
+"""
+Tests for post app views.
+"""
+
 from django.test import TestCase, RequestFactory
 from django.conf import settings
 from django.http.response import Http404
+from django.contrib.auth.models import User
 
 from util.fixtures import generate
 
 from blog import views
 
 from blog.models import Post
-from django.contrib.auth.models import User
 
 from bs4 import BeautifulSoup
 
 
 class PostIndexPaginationTest(TestCase):
     """Test index post view"""
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.request = None
+        self.response = None
+        self.soup = None
+        self.pagination = None
 
     @classmethod
     def setUpClass(cls):
@@ -39,16 +50,18 @@ class PostIndexPaginationTest(TestCase):
 
     def test_ordered(self):
         """Test if posts are date sorted"""
-        dt = []
+        dt_list = []
         # pages begins in 1, but 0 is a special value for get_page()
         for page_number in [0, 2, 3]:
             self.get_page(page_number)
             date = self.soup.find(class_='post-date')
             while date is not None:
-                dt.append(date.text)
+                dt_list.append(date.text)
                 date = date.find_next(class_='post-date')
 
-        self.assertTrue(all(dt[i] >= dt[i+1] for i in range(len(dt)-1)))
+        self.assertTrue(
+            all(dt_list[i] >= dt_list[i+1] for i in range(len(dt_list)-1))
+        )
 
     def test_response_code_first_page(self):
         """Test response code in first page"""
@@ -68,7 +81,7 @@ class PostIndexPaginationTest(TestCase):
     def test_has_pagination_first_page(self):
         """Test if first page has pagination class in html"""
         self.get_page()
-        self.assertEquals(len(self.pagination), 1)
+        self.assertEqual(len(self.pagination), 1)
 
     def test_pagination_has_first_in_first_page(self):
         """Test if first page has the 'first' link in pagination"""
@@ -83,7 +96,7 @@ class PostIndexPaginationTest(TestCase):
     def test_has_pagination_second_page(self):
         """Test if second page has pagination class in html"""
         self.get_page(2)
-        self.assertEquals(len(self.pagination), 1)
+        self.assertEqual(len(self.pagination), 1)
 
     def test_response_code_last_page(self):
         """Test response code in last page"""
@@ -93,7 +106,7 @@ class PostIndexPaginationTest(TestCase):
     def test_has_pagination_last_page(self):
         """Test if last page has pagination class in html"""
         self.get_page(3)
-        self.assertEquals(len(self.pagination), 1)
+        self.assertEqual(len(self.pagination), 1)
 
     def test_pagination_has_last_in_last_page(self):
         """Test if last page has the 'last' link in pagination"""

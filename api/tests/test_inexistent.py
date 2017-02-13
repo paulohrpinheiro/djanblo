@@ -1,3 +1,7 @@
+"""
+Tests for inexistent post path.
+"""
+
 from django.test import TestCase, RequestFactory
 
 from api import views
@@ -19,7 +23,7 @@ class ApiInexistentPostTests(TestCase):
 
     def test_inexistent_post_status(self):
         """Test status for inexistent post."""
-        self.assertEqual('failed', self.json_response['status'])
+        self.assertEqual('fail', self.json_response['status'])
 
     def test_inexistent_post_message(self):
         """Test message for inexistent post."""

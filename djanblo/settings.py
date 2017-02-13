@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'api.apps.ApiConfig',
     'django_nose',
     'bootstrap3',
-    'django_markup',
 ]
 
 MIDDLEWARE = [

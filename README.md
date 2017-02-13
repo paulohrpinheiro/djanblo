@@ -83,7 +83,7 @@ Há uma API, que responde pelos seguintes recursos:
 
 ### [http://127.0.0.1:8000/api](http://127.0.0.1:8000/api)
 
-É o ponto de entrada. Retona um código de resposta HTTP 200:
+É o ponto de entrada. Retorna um código de resposta HTTP 200:
 
     ➤ curl -i http://127.0.0.1:8000/api                                                                      
     HTTP/1.0 200 OK

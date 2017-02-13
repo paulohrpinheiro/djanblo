@@ -45,17 +45,28 @@ Para executar localmente, suba o servidor:
     cd djanblo
     ./manage.py runserver
 
+Crie um usuário:
+
+    ./manage createsuperuser
+
 e acesse, pelo browser, o endereço:
 
 [http://127.0.0.1:8080](http://127.0.0.1:8080)
 
-Há uma API, que responde retorna os seguintes recursos:
+## Admin
+
+Para administrar usuários e posts (operações CRUD), acesse o endereço:
+
+[http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
+
+## API
+
+Há uma API, que responde pelos seguintes recursos:
 
 ### [http://127.0.0.1:8080/api](http://127.0.0.1:8080/api)
 
 É o ponto de entrada
 
-Comando:
 
 ### [http://127.0.0.1:8080/api/posts](http://127.0.0.1:8080/api/posts)
 

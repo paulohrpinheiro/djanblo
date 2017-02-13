@@ -75,4 +75,6 @@ def list_posts(request):
         'posts': [post_info(request, post) for post in posts],
     }
 
+    data['posts_count'] = len(data['posts'])
+
     return(JsonResponse(data))

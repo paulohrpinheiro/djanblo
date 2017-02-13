@@ -39,6 +39,6 @@ class ApiExistentPostTests(TestCase):
 
     def test_existent_post_get_correct_data(self):
         """Test if get all fields from database."""
-        fields = 'publication_date path title subject content author link'\
+        fields = 'publication_date path title subject content author link ref'\
             .split()
         self.assertEqual(set(fields), set(self.json_response['post']))

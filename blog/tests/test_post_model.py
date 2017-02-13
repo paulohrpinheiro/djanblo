@@ -1,6 +1,4 @@
-"""
-Tests for blog model.
-"""
+"""Tests for blog model."""
 
 from django.test import TestCase
 from django.contrib.auth.models import User

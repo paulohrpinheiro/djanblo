@@ -1,6 +1,4 @@
-"""
-Tests for existent post.
-"""
+"""Tests for existent post."""
 
 from django.test import TestCase, RequestFactory
 

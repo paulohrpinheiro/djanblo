@@ -1,6 +1,4 @@
-"""
-Views for api app.
-"""
+"""Views for api app."""
 
 from django.http import JsonResponse
 

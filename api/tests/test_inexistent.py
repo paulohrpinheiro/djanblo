@@ -1,6 +1,4 @@
-"""
-Tests for inexistent post path.
-"""
+"""Tests for inexistent post path."""
 
 from django.test import TestCase, RequestFactory
 

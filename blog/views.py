@@ -1,6 +1,4 @@
-"""
-Views for blog app.
-"""
+"""Views for blog app."""
 
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger

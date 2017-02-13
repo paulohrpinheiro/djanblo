@@ -1,6 +1,4 @@
-"""
-Models for blog app.
-"""
+"""Models for blog app."""
 
 from django.db import models
 from django.conf import settings

@@ -1,6 +1,4 @@
-"""
-Json converter.
-"""
+"""Json converter."""
 
 import json
 

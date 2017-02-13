@@ -1,6 +1,4 @@
-"""
-Fake data generator for fixtures.
-"""
+"""Fake data generator for fixtures."""
 
 from random import randrange, choice
 from datetime import timezone

@@ -1,6 +1,4 @@
-"""
-Tests for API entrypoint.
-"""
+"""Tests for API entrypoint."""
 
 from django.test import TestCase, RequestFactory
 

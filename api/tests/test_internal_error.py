@@ -1,6 +1,4 @@
-"""
-Tests for internal error condition.
-"""
+"""Tests for internal error condition."""
 
 from django.test import TestCase, RequestFactory
 

@@ -1,6 +1,4 @@
-"""
-Tests for post app views.
-"""
+"""Tests for post app views."""
 
 from django.test import TestCase, RequestFactory
 from django.conf import settings

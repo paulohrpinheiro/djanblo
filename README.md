@@ -36,24 +36,42 @@ Ou, se usando `pyvenv` apenas:
 
 Então instale as dependências:
 
+    cd /tmp/djanblo
     pip install -r requirements.txt
 
 ## Uso
 
-Para executar localmente, suba o servidor:
+Todos os comando a seguir devem ser executados dentro do diretório do projeto:
 
-    cd djanblo
+    cd /tmp/djanblo
+
+Execute os testes automáticos:
+
+    ./manage.py test
+
+Para executar localmente, crie o banco de dados:
+
+    ./manage.py migrate
+
+Dados aleatórios podem ser gerados pelo seguinte comando:
+
+    ./manage.py fixtures 5 20
+
+Nesse exemplo, 5 autores e 10 posts. O autor de cada post será escolhido aleatoriamente.
+
+E então suba o servidor:
+
     ./manage.py runserver
 
-Crie um usuário:
+E acesse, pelo browser, o endereço:
 
-    ./manage createsuperuser
-
-e acesse, pelo browser, o endereço:
-
-[http://127.0.0.1:8080](http://127.0.0.1:8080)
+[http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 ## Admin
+
+É preciso criar um superusuário para administrar o sistema:
+
+    ./manage.py createsuperuser
 
 Para administrar usuários e posts (operações CRUD), acesse o endereço:
 
@@ -63,7 +81,7 @@ Para administrar usuários e posts (operações CRUD), acesse o endereço:
 
 Há uma API, que responde pelos seguintes recursos:
 
-### [http://127.0.0.1:8080/api](http://127.0.0.1:8080/api)
+### [http://127.0.0.1:8000/api](http://127.0.0.1:8000/api)
 
 É o ponto de entrada. Retona um código de resposta HTTP 200:
 
@@ -76,7 +94,7 @@ Há uma API, que responde pelos seguintes recursos:
     {"post_content": "http://127.0.0.1:8000/api/posts/{path}", "message": "", "posts_listing": "http://127.0.0.│[13/Feb/2017 09:59:42] "GET /api HTTP/1.1" 200 146
     1:8000/api/posts", "status": "success"}
 
-### [http://127.0.0.1:8080/api/posts](http://127.0.0.1:8080/api/posts)
+### [http://127.0.0.1:8000/api/posts](http://127.0.0.1:8000/api/posts)
 
 Gera uma lista com todos os posts. Retorna um código de resposta HTTP 200:
 
@@ -107,7 +125,7 @@ A estrutura desse retorno é similar a:
         }
     }
     
-### [http://127.0.0.1:8080/api/posts/{path}](http://127.0.0.1:8080/api/posts/{path})
+### [http://127.0.0.1:8000/api/posts/{path}](http://127.0.0.1:8000/api/posts/{path})
 
 Devolve um post em específico, dado o seu `path` (veja mais abaixo uma explicação sobre o modelo de dados usado). Tem o retorno HTTP 200, caso encontre o `path` solicitado:
 
@@ -131,22 +149,11 @@ Caso seja requisitado um post com `path` inexistente uma saída similar a essa �
 
     {"message": "The required post path not exist.", "status": "fail"}
 
-### Populando
-
-Dados aleatórios podem ser gerados pelo comando:
-
-    ./manage.py fixtures 5 10
-
-## Testes automáticos e relatório de cobertura
-
-    cd /tmp/djanblo
-    pip install -r requirements.txt
-    ./manage.py test
-
 ## Colaborando
 
 É recomendável instalar as dependência de desenvolvimento:
 
+    cd /tmp/djanblo
     pip install -e requirements-dev.txt
 
 ## Modelo de dados
@@ -167,7 +174,7 @@ Assunto do post, ou uma breve descrição do conteúdo.
 
 #### `path`
 
-É um campo de valores únicos e compõe o endereço do post.
+É um campo de valores únicos e compõe o endereço do post. No admin é sugerido um valor para esse campo após digitar-se o título (`title`).
 
 #### `pud_date`
 
@@ -185,6 +192,8 @@ Quem incluiu o post, usa o modelo `User` do Django.
 
 - Não foram desenvolvidas configurações diferenciadas para produção, desenvolvimento ou testes. Usa-se uma configuração apenas, com SQLite como banco de dados.
 
+- As postagens são mostradas parcialmente na lista da página principal. Clicando na postagem, será mostrada outra página com a postagem completa.
+
 - Stack de desenvolvimento:
     -   [Linux Fedora 25](https://fedoraproject.org/)
     -   [neovim](https://neovim.io/) com configurações geradas pelo [Vim Bootstrap](http://www.vim-bootstrap.com/)
@@ -196,4 +205,4 @@ Quem incluiu o post, usa o modelo `User` do Django.
 
 ## Licença
 
-This is a [MIT licensed](LICENSE) project.
+Publicado sob a [licença MIT](LICENSE).

@@ -21,10 +21,6 @@ class ApiExistentPostTests(TestCase):
         cls.response = views.get_post(cls.request, path=cls.post.path)
         cls.json_response = json.to_json(cls.response.content)
 
-    def setUp(self):
-        """Setup ApiExistentPostTests tests."""
-        pass
-
     def test_existent_post_status(self):
         """Test status for existent post."""
         self.assertEqual('success', self.json_response['status'])

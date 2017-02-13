@@ -1,5 +1,7 @@
 # djanblo
 
+[![Build Status](https://travis-ci.org/paulohrpinheiro/djanblo.svg?branch=master)](https://travis-ci.org/paulohrpinheiro/djanblo)
+
 Welcome to the djanblo!
 
 Djanblo é um gerenciador de blog escrito em Python com framework Django, criado para ser um dos critérios de avaliação para uma vaga de emprego.
@@ -41,7 +43,7 @@ Então instale as dependências:
 
 ## Uso
 
-Todos os comando a seguir devem ser executados dentro do diretório do projeto:
+Todos os comandos a seguir devem ser executados dentro do diretório do projeto:
 
     cd /tmp/djanblo
 
@@ -55,9 +57,9 @@ Para executar localmente, crie o banco de dados:
 
 Dados aleatórios podem ser gerados pelo seguinte comando:
 
-    ./manage.py fixtures 5 20
+    ./manage.py fixtures 5 25
 
-Nesse exemplo, 5 autores e 10 posts. O autor de cada post será escolhido aleatoriamente.
+Nesse exemplo, 5 autores e 25 posts. O autor de cada post será escolhido aleatoriamente.
 
 E então suba o servidor:
 
@@ -73,7 +75,7 @@ E acesse, pelo browser, o endereço:
 
     ./manage.py createsuperuser
 
-Para administrar usuários e posts (operações CRUD), acesse o endereço:
+Para administrar usuários e posts (operações CRUD), acesse o endereçoi, com as credenciais criadas:
 
 [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 

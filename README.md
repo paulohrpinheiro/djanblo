@@ -12,7 +12,7 @@ Djanblo é um gerenciador de blog escrito em Python com framework Django, criado
 Desenvolver um sistema de blog usando Python e Django:
 
 - [x] o sistema deve ter uma home page que mostre as postagens, da mais recente a mais antiga, paginadas, 10 postagens por página
-- deve existir um sistema de login para que os administradores possam cadastrar novas postagens
+- [ ] deve existir um sistema de login para que os administradores possam cadastrar novas postagens
 - [x] deve utilizar o framework bootstrap para layout das páginas
 - [x] deve existir uma API onde seja possível obter através de GET as postagens do banco
 - [x] O código deve ser publicado no github, em uma conta pública

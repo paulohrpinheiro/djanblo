@@ -75,7 +75,7 @@ E acesse, pelo browser, o endereço:
 
     ./manage.py createsuperuser
 
-Para administrar usuários e posts (operações CRUD), acesse o endereçoi, com as credenciais criadas:
+Para administrar usuários e posts (operações CRUD), acesse o endereço, com as credenciais criadas:
 
 [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 
